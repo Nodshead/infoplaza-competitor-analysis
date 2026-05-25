@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoPlaza / i-nav — Competitor Analysis</title>
+<style>
+  :root {
+    --green: #3DBD71;
+    --green-dark: #2A9A55;
+    --green-light: #E8F8EF;
+    --dark: #1A1A1A;
+    --mid: #444444;
+    --muted: #777777;
+    --bg: #F5F5F0;
+    --card: #FFFFFF;
+    --border: #E0E0D8;
+    --warn: #F0A500;
+    --warn-bg: #FFF8E6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    background: var(--dark);
+    z-index: 100;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    overflow-x: auto;
+    border-bottom: 3px solid var(--green);
+  }
+  nav a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 12px 10px;
+    white-space: nowrap;
+    transition: color 0.15s;
+  }
+  nav a:hover { color: var(--green); }
+  nav .nav-logo {
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    margin-right: 12px;
+    padding: 12px 0;
+    white-space: nowrap;
+    border-right: 1px solid #333;
+    padding-right: 16px;
+  }
+
+  /* LAYOUT */
+  .wrapper { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+
+  h1 { font-size: 36px; font-weight: 800; line-height: 1.15; }
+  h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: var(--dark); }
+  h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--dark); }
+  p { color: var(--mid); margin-bottom: 12px; }
+  ul { color: var(--mid); padding-left: 20px; }
+  ul li { margin-bottom: 5px; }
+
+  .label {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .label.warn { background: var(--warn); }
+  .label.dark { background: var(--dark); }
+
+  /* HERO */
+  #hero {
+    background: var(--dark);
+    color: #fff;
+    padding: 64px 0 56px;
+    border-bottom: none;
+  }
+  #hero .meta {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  #hero h1 { color: #fff; margin-bottom: 8px; }
+  #hero h1 span { color: var(--green); }
+  #hero .sub {
+    font-size: 17px;
+    color: #aaa;
+    max-width: 560px;
+    margin-top: 12px;
+  }
+  #hero .badge {
+    display: inline-block;
+    margin-top: 20px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: #bbb;
+  }
+  #hero .badge strong { color: #fff; }
+
+  /* STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card .desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 8px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid #fff;
+  }
+  .tl-item.highlight::before { background: var(--green); }
+  .tl-item.milestone::before { background: var(--warn); }
+  .tl-year {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 2px;
+  }
+  .tl-item.milestone .tl-year { color: var(--warn); }
+  .tl-text { font-size: 14px; color: var(--mid); }
+  .tl-text strong { color: var(--dark); }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .cards-grid.three { grid-template-columns: repeat(3, 1fr); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .card .card-icon {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .card h3 { margin-bottom: 8px; }
+  .card ul { margin-top: 8px; }
+
+  /* PILLARS */
+  .pillar-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    border-top: 4px solid var(--green);
+  }
+  .pillar-card .pillar-num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--green);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  /* MODULE LIST */
+  .module-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .module-tag {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--mid);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .module-tag::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+  .module-tag.indev {
+    border-color: var(--warn);
+    background: var(--warn-bg);
+  }
+  .module-tag.indev::before { background: var(--warn); }
+
+  /* ALGO COMPARISON */
+  .algo-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .algo-box {
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .algo-box.old {
+    background: #f8f8f8;
+    border: 1px solid var(--border);
+  }
+  .algo-box.new {
+    background: var(--green-light);
+    border: 2px solid var(--green);
+  }
+  .algo-box h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .algo-box.old h3 { color: var(--muted); }
+  .algo-box.new h3 { color: var(--green-dark); }
+  .obj-tag {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin: 3px 2px;
+  }
+  .algo-box.old .obj-tag { background: #e8e8e8; color: #666; }
+  .algo-box.new .obj-tag { background: var(--green); color: #fff; }
+  .algo-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* PIPELINE */
+  .pipeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 16px;
+    overflow-x: auto;
+  }
+  .pipeline-step {
+    flex: 1;
+    min-width: 160px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px 16px;
+    position: relative;
+  }
+  .pipeline-step:first-child { border-radius: 12px 0 0 12px; }
+  .pipeline-step:last-child { border-radius: 0 12px 12px 0; }
+  .pipeline-arrow {
+    width: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    font-size: 18px;
+    color: var(--green);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .pipeline-step h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .pipeline-step ul { font-size: 13px; padding-left: 14px; color: var(--mid); }
+
+  /* WORKFLOW STRIP */
+  .workflow-strip {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    margin-top: 16px;
+  }
+  .wf-step {
+    flex: 1;
+    min-width: 160px;
+    padding: 20px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-right: none;
+    position: relative;
+  }
+  .wf-step:last-child { border-right: 1px solid var(--border); }
+  .wf-step:first-child { border-radius: 12px 0 0 12px; }
+  .wf-step:last-child { border-radius: 0 12px 12px 0; }
+  .wf-num {
+    width: 28px;
+    height: 28px;
+    background: var(--green);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .wf-step h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .wf-step ul { font-size: 13px; color: var(--mid); padding-left: 14px; }
+
+  /* PARTNERS */
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .partner-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .partner-name {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--dark);
+  }
+  .partner-role {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .partner-card ul { font-size: 13px; }
+
+  /* PYRAMID */
+  .pyramid-list {
+    counter-reset: pyr;
+    list-style: none;
+    padding: 0;
+  }
+  .pyramid-list li {
+    counter-increment: pyr;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    border-left: 4px solid var(--green);
+  }
+  .pyr-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--green);
+    opacity: 0.4;
+    min-width: 28px;
+    line-height: 1.2;
+  }
+  .pyr-content h4 { font-size: 15px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .pyr-content p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* COMPLIANCE */
+  .compliance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .compliance-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .compliance-item .ci-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .compliance-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .compliance-item p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--dark);
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--mid);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #fafaf8; }
+
+  /* PRICING */
+  .pricing-note {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .pn-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .pn-item p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* GAPS */
+  .gap-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--warn-bg);
+    border: 1px solid #F0D090;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+  }
+  .gap-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--warn);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+  .gap-item h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .gap-item p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: #666;
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .cards-grid { grid-template-columns: 1fr; }
+    .cards-grid.three { grid-template-columns: 1fr; }
+    .module-grid { grid-template-columns: 1fr 1fr; }
+    .algo-compare { grid-template-columns: 1fr; }
+    .partners-grid { grid-template-columns: 1fr; }
+    .compliance-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-note { grid-template-columns: 1fr; }
+    .pipeline { flex-direction: column; }
+    .pipeline-arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">InfoPlaza / i-nav</div>
+  <a href="#glance">At a Glance</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#product">Product</a>
+  <a href="#modules">Modules</a>
+  <a href="#tvos">TVOS Algorithm</a>
+  <a href="#vessel">Vessel Modelling</a>
+  <a href="#ecosystem">Ecosystem</a>
+  <a href="#workflow">Workflow</a>
+  <a href="#compliance">Compliance</a>
+  <a href="#hardware">Hardware</a>
+  <a href="#clients">Clients</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#gaps">Gaps</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrapper">
+    <div class="meta">Competitor Analysis &nbsp;·&nbsp; May 2026</div>
+    <h1>InfoPlaza &amp; <span>i-nav</span></h1>
+    <div class="sub">Full-service weather company launching a fleet performance ecosystem for the offshore &amp; shipping industry. Closest near-peer competitor in Europe / NL.</div>
+    <div class="badge">
+      <strong>Headquarters:</strong> Netherlands &nbsp;·&nbsp;
+      <strong>Founded:</strong> 2009 &nbsp;·&nbsp;
+      <strong>Backed:</strong> Bolster Investment Partners (PE, 2020) &nbsp;·&nbsp;
+      <strong>i-nav launch:</strong> 2026
+    </div>
+  </div>
+</section>
+
+<!-- AT A GLANCE -->
+<section id="glance">
+  <div class="wrapper">
+    <span class="label">At a Glance</span>
+    <h2>Company Scale</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="num">120</div>
+        <div class="desc">Professionals<br>~100 NL · 20 abroad</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">25M</div>
+        <div class="desc">Online users per month<br>across Europe</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">5,000</div>
+        <div class="desc">Companies served<br>land, sea &amp; offshore</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">2M</div>
+        <div class="desc">Offshore forecasts<br>since 2018</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="wrapper">
+    <span class="label">Company History</span>
+    <h2>From Consumer Weather to Offshore Platform</h2>
+    <p>8 acquisitions in 13 years. Consistent strategy: acquire specialist capability, integrate into platform.</p>
+    <br>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">2009</div>
+        <div class="tl-text">Founded Infoplaza — weather data platform for media and small enterprises</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2010–2013</div>
+        <div class="tl-text">Built consumer properties: Weerplaza.nl, Verkeerplaza.nl, Ovplaza.nl. Acquired Weersverwachting.nl &amp; Weersvoorspelling.nl</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2014</div>
+        <div class="tl-text">Service partnership with ProRail weather bureau — first major B2B client</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2015</div>
+        <div class="tl-text">Acquired Moop Mobility BV — opened mobility market vertical</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2016</div>
+        <div class="tl-text">Acquired B2B activities of Meteovista / Weeronline</div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-year">2017</div>
+        <div class="tl-text"><strong>Started weather service for Maritime clients</strong> — offshore pivot begins</div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-year">2018</div>
+        <div class="tl-text"><strong>Acquired BMT Argoss BV</strong> — nearshore modelling specialists. Still the technical foundation of all offshore work today. Also acquired Buienalarm.nl.</div>
+      </div>
+      <div class="tl-item highlight">
+        <div class="tl-year">2020</div>
+        <div class="tl-text"><strong>Bolster Investment Partners joined</strong> as backer. Acquired Meteovista BV (incl. Weeronline.nl).</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2022</div>
+        <div class="tl-text">Acquired The Meteo Company</div>
+      </div>
+      <div class="tl-item milestone">
+        <div class="tl-year">2026</div>
+        <div class="tl-text"><strong>i-nav launches</strong> — full fleet performance ecosystem for offshore &amp; shipping</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT: 4 PILLARS -->
+<section id="product">
+  <div class="wrapper">
+    <span class="label">i-nav Product</span>
+    <h2>Four Pillars of the i-nav Platform</h2>
+    <p>i-nav is positioned as an integrated ecosystem — not a point solution. All four pillars operate together.</p>
+    <br>
+    <div class="cards-grid">
+      <div class="pillar-card">
+        <div class="pillar-num">01</div>
+        <h3>TVOS Routing Algorithm</h3>
+        <p>AI-driven multi-objective voyage optimisation. Simultaneously calculates ~100,000 routes across all objectives, presents top 3. Developed with Alan Turing Institute + University of Southampton over 15+ years.</p>
+        <ul>
+          <li>TCE, minimal fuel, JITA, best time, safety, GHG — all at once</li>
+          <li>Genetic algorithm — future-proof, adapts to new regulations via AI</li>
+          <li>Calculates within seconds</li>
+        </ul>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">02</div>
+        <h3>Weather Intelligence — "The Optimal Model"</h3>
+        <p>InfoPlaza's proprietary multi-model blend, enhanced with high-resolution in-house models and AI. Primary atmospheric strength.</p>
+        <ul>
+          <li>15-day forecast · 5-year hindcast</li>
+          <li>50+ meteorological parameters</li>
+          <li>Storm tracks (live Nowcast layer)</li>
+          <li>Wind speed, wave heights, pressure</li>
+          <li>Ocean currents at 10m depth average</li>
+        </ul>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">03</div>
+        <h3>Navigation Database</h3>
+        <p>Advanced and comprehensive navigation database ensuring all calculated routes are legally and operationally valid.</p>
+        <ul>
+          <li>ENC-validated routes</li>
+          <li>IMO Traffic Separation Scheme (TSS) compliant</li>
+          <li>High-risk areas (HRA) &amp; marine protected zones</li>
+          <li>DAI restricted areas</li>
+          <li>Draft-aware (set manually or from vessel model)</li>
+        </ul>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-num">04</div>
+        <h3>Compliance Suite</h3>
+        <p>Full regulatory coverage — CII, EU ETS, FuelEU, EU/UK MRV, IMO DCS. Designed to reduce administrative burden.</p>
+        <ul>
+          <li>CII rating projection 3 years ahead</li>
+          <li>EU ETS Wallet per vessel</li>
+          <li>FuelEU Pooling scenario planning</li>
+          <li>Charter Party reports</li>
+          <li>MRV + IMO DCS export-ready</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FULL MODULE LIST -->
+<section id="modules">
+  <div class="wrapper">
+    <span class="label">Platform Scope</span>
+    <h2>Full i-nav Module List</h2>
+    <p>Complete platform scope visible in the i-nav application sidebar.</p>
+    <br>
+    <div class="module-grid">
+      <div class="module-tag">Map</div>
+      <div class="module-tag">Live Weather</div>
+      <div class="module-tag module-tag" style="border-color: #e0d0ff; background: #f8f4ff;">Vessel Motion <span style="font-size:10px;margin-left:6px;color:#9966cc;">in dev</span></div>
+      <div class="module-tag">Vessel Performance</div>
+      <div class="module-tag">CII Monitoring</div>
+      <div class="module-tag">EUT / FuelEU</div>
+      <div class="module-tag">High Frequency Data</div>
+      <div class="module-tag">Vessel Camera</div>
+      <div class="module-tag">Vessel Tracking</div>
+      <div class="module-tag">Vessel Voyages</div>
+      <div class="module-tag">Voyage Optimisation</div>
+      <div class="module-tag">Post Voyage Analysis</div>
+      <div class="module-tag">Vessel Reporting</div>
+      <div class="module-tag">GVP Templates</div>
+    </div>
+  </div>
+</section>
+
+<!-- TVOS ALGORITHM -->
+<section id="tvos">
+  <div class="wrapper">
+    <span class="label">Key Differentiator</span>
+    <h2>TVOS: Multi-Objective AI Algorithm</h2>
+    <p>InfoPlaza's stated key differentiator vs every other routing solution on the market. Developed over 15+ years with the Alan Turing Institute and University of Southampton. Delivered by partner <strong>Theyr</strong>.</p>
+
+    <div class="algo-compare">
+      <div class="algo-box old">
+        <h3>Traditional (Single-Objective)</h3>
+        <p style="font-size:13px;color:#888;margin-bottom:14px;">Optimises for one objective at a time. Combining multiple requires manual trade-off.</p>
+        <span class="obj-tag">Time Charter Equivalent (TCE)</span>
+        <span class="obj-tag">Minimal Fuel Consumption</span>
+        <span class="obj-tag">JITA</span>
+        <span class="obj-tag">Best Time</span>
+        <span class="obj-tag">Safety</span>
+        <span class="obj-tag">GHG Emissions</span>
+        <div class="algo-note">Must be re-coded entirely to add a new objective (e.g. new regulation)</div>
+      </div>
+      <div class="algo-box new">
+        <h3>TVOS (Multi-Objective)</h3>
+        <p style="font-size:13px;color:var(--green-dark);margin-bottom:14px;">All objectives calculated simultaneously. ~100,000 routes evaluated → top 3 presented.</p>
+        <span class="obj-tag">Time Charter Equivalent (TCE)</span>
+        <span class="obj-tag">Minimal Fuel Consumption</span>
+        <span class="obj-tag">JITA</span>
+        <span class="obj-tag">Best Time</span>
+        <span class="obj-tag">Safety</span>
+        <span class="obj-tag">GHG Emissions</span>
+        <div class="algo-note" style="color:var(--green-dark);">AI-driven: adapts automatically to new regulations without re-coding. Future-proof.</div>
+      </div>
+    </div>
+
+    <br>
+    <div class="cards-grid three">
+      <div class="card">
+        <h3>Development Pedigree</h3>
+        <ul>
+          <li>Alan Turing Institute (UK AI leader)</li>
+          <li>University of Southampton</li>
+          <li>Theyr (routing technology partner)</li>
+          <li>15+ years of development</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Performance Claim</h3>
+        <ul>
+          <li>~100,000 routes evaluated per calculation</li>
+          <li>Top 3 routes presented to user</li>
+          <li>Calculation within seconds</li>
+          <li>Adapts automatically to regulation changes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>EcoSystem Advantages (InfoPlaza's framing)</h3>
+        <ul>
+          <li>End-to-end efficiency</li>
+          <li>Seamless data integration</li>
+          <li>Cost &amp; delay reduction</li>
+          <li>Enhanced sustainability</li>
+          <li>Improved safety</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VESSEL MODELLING -->
+<section id="vessel">
+  <div class="wrapper">
+    <span class="label">ProSeaDure</span>
+    <h2>Vessel Modelling &amp; Operational Guidance</h2>
+    <p>Delivered by partner <strong>ProSeaDure</strong>. Vessel model acts as the <em>performance layer inside the optimisation workflow</em>.</p>
+
+    <br>
+    <h3>Vessel Modelling Pipeline</h3>
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <h4>Input</h4>
+        <ul>
+          <li>Vessel particulars</li>
+          <li>Operational profile &amp; constraints</li>
+          <li>Historical noon / sensor data</li>
+          <li>Weather, waves &amp; current</li>
+        </ul>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <h4>Modelling Layer</h4>
+        <ul>
+          <li>Speed / power / fuel curves</li>
+          <li>Weather-response layer (wind/wave impact)</li>
+          <li>Calibration &amp; refinement with voyage data</li>
+        </ul>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <h4>Outcome</h4>
+        <ul>
+          <li>Routing-ready performance model</li>
+          <li>Feasible speed / power envelope</li>
+          <li>Basis for ETA, fuel &amp; safety estimations</li>
+        </ul>
+      </div>
+    </div>
+
+    <br><br>
+    <h3>Vessel Motion Model <span class="label warn" style="font-size:10px;vertical-align:middle;margin-left:8px;">In Development</span></h3>
+    <p>Adding directional wave spectrum to create a vessel motion response model. Not yet live — separate from voyage optimisation module.</p>
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <h4>Input</h4>
+        <ul>
+          <li>Directional wave spectrum</li>
+          <li>Heading &amp; speed</li>
+        </ul>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <h4>Vessel Response Model</h4>
+        <ul>
+          <li>Vessel-specific RAOs</li>
+          <li>Applied to wave spectrum</li>
+        </ul>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <h4>Motion Response</h4>
+        <ul>
+          <li>Heave / roll / pitch</li>
+          <li>By weather and speed</li>
+        </ul>
+      </div>
+      <div class="pipeline-arrow">→</div>
+      <div class="pipeline-step">
+        <h4>Operational Insight</h4>
+        <ul>
+          <li>Compare headings, speeds &amp; windows</li>
+          <li>Heading sweep polar diagram</li>
+          <li>GO / caution / no-go guidance</li>
+          <li>3-day operational forecast</li>
+        </ul>
+      </div>
+    </div>
+
+    <br>
+    <div class="card" style="background:var(--warn-bg);border-color:#F0D090;">
+      <h3 style="color:var(--warn);">Current Status</h3>
+      <p>Vessel motion dashboard is currently <strong>separate from voyage optimisation</strong> — operates as standalone heading guidance tool. Integration into the main routing workflow is still being developed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM & PARTNERS -->
+<section id="ecosystem">
+  <div class="wrapper">
+    <span class="label">Consortium</span>
+    <h2>Ecosystem &amp; Partners</h2>
+    <p>i-nav is a three-party consortium product. Each partner owns a specific layer.</p>
+    <br>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <div class="partner-name">InfoPlaza</div>
+        <div class="partner-role">Weather Intelligence</div>
+        <ul>
+          <li>15-day forecast / 5-yr hindcast</li>
+          <li>50+ meteorological parameters</li>
+          <li>"The Optimal Model" — multi-model + AI</li>
+          <li>Storm tracks, wave heights, wind</li>
+          <li>Ocean currents (10m depth average)</li>
+        </ul>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">Theyr</div>
+        <div class="partner-role">TVOS Routing Algorithm</div>
+        <ul>
+          <li>Multi-objective AI routing engine</li>
+          <li>Genetic algorithm (15+ yrs R&amp;D)</li>
+          <li>Alan Turing Institute + Univ. Southampton</li>
+          <li>~100,000 routes → top 3 output</li>
+        </ul>
+      </div>
+      <div class="partner-card">
+        <div class="partner-name">ProSeaDure</div>
+        <div class="partner-role">Front-end + Vessel Modelling + Hardware</div>
+        <ul>
+          <li>i-nav platform front-end</li>
+          <li>Vessel performance models</li>
+          <li>Vessel motion model (in dev)</li>
+          <li>Compliance &amp; reporting modules</li>
+          <li>Onboard hardware (19-inch rack)</li>
+        </ul>
+      </div>
+    </div>
+
+    <br>
+    <h3>Ecosystem Data Flows</h3>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>Inputs (left side)</h3>
+        <ul>
+          <li>Navigation Database</li>
+          <li>Vessel Models</li>
+          <li>Optimisation Algorithm (TVOS)</li>
+          <li>Weather Intelligence</li>
+          <li>Reporting Module</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Connected Users (right side)</h3>
+        <ul>
+          <li>Offshore logistics operators</li>
+          <li>Fleet performance centres</li>
+          <li>Ship Managers</li>
+          <li>Forwarders &amp; Transport</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM ADVANTAGES -->
+<section style="padding:40px 0; border-bottom: 1px solid var(--border);">
+  <div class="wrapper">
+    <span class="label">Value Proposition</span>
+    <h2>Integrated EcoSystem Advantages</h2>
+    <p>InfoPlaza's own framing — pyramid of benefits from their "Navigating the Future" positioning.</p>
+    <br>
+    <ol class="pyramid-list">
+      <li>
+        <div class="pyr-num">1</div>
+        <div class="pyr-content">
+          <h4>End-to-End Efficiency</h4>
+          <p>Optimised routes and timely port arrivals</p>
+        </div>
+      </li>
+      <li>
+        <div class="pyr-num">2</div>
+        <div class="pyr-content">
+          <h4>Seamless Data Integration</h4>
+          <p>Unified, actionable data for all stakeholders</p>
+        </div>
+      </li>
+      <li>
+        <div class="pyr-num">3</div>
+        <div class="pyr-content">
+          <h4>Cost and Delay Reduction</h4>
+          <p>Minimised waiting times and fuel consumption</p>
+        </div>
+      </li>
+      <li>
+        <div class="pyr-num">4</div>
+        <div class="pyr-content">
+          <h4>Enhanced Sustainability</h4>
+          <p>Reduced CO₂ emissions through optimal routing</p>
+        </div>
+      </li>
+      <li>
+        <div class="pyr-num">5</div>
+        <div class="pyr-content">
+          <h4>Improved Safety</h4>
+          <p>Navigating the safest possible routes</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- WORKFLOW -->
+<section id="workflow">
+  <div class="wrapper">
+    <span class="label">User Journey</span>
+    <h2>How i-nav Fits the Workflow</h2>
+    <p>The full voyage lifecycle, from planning through continuous improvement.</p>
+    <br>
+    <div class="workflow-strip">
+      <div class="wf-step">
+        <div class="wf-num">1</div>
+        <h4>Plan</h4>
+        <ul>
+          <li>Compare routes</li>
+          <li>Model fuel consumption</li>
+          <li>Assess EU ETS impact</li>
+        </ul>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">2</div>
+        <h4>Sail</h4>
+        <ul>
+          <li>Monitor consumption</li>
+          <li>Live forecast updates</li>
+          <li>Overconsumption alerts</li>
+        </ul>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">3</div>
+        <h4>Verify</h4>
+        <ul>
+          <li>Compare predicted vs actual route</li>
+          <li>Actual vs good-weather fuel</li>
+        </ul>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">4</div>
+        <h4>Comply</h4>
+        <ul>
+          <li>Export EU/UK MRV reports</li>
+          <li>IMO DCS ready</li>
+          <li>Charter Party reports</li>
+        </ul>
+      </div>
+      <div class="wf-step">
+        <div class="wf-num">5</div>
+        <h4>Improve</h4>
+        <ul>
+          <li>Vessel model iteration</li>
+          <li>Optimise future voyages</li>
+          <li>Fleet-level insights</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section id="compliance">
+  <div class="wrapper">
+    <span class="label">Regulation Coverage</span>
+    <h2>Compliance Suite — Detail</h2>
+    <p>ProSeaDure-delivered compliance modules integrated directly into the i-nav platform.</p>
+    <br>
+    <div class="compliance-grid">
+      <div class="compliance-item">
+        <div class="ci-label">CII</div>
+        <h4>3-Year CII Projection</h4>
+        <p>Per individual vessel. Flags vessels requiring attention for efficiency targets.</p>
+      </div>
+      <div class="compliance-item">
+        <div class="ci-label">EU ETS</div>
+        <h4>EU ETS Wallet</h4>
+        <p>Tracks EUA costs, allocation and FuelEU penalties per vessel. Shows average price paid and projected future obligations.</p>
+      </div>
+      <div class="compliance-item">
+        <div class="ci-label">FuelEU</div>
+        <h4>FuelEU Pooling</h4>
+        <p>Scenario planning with various pooling allocations. Visualise penalty risk exposure across fleet.</p>
+      </div>
+      <div class="compliance-item">
+        <div class="ci-label">Charter Party</div>
+        <h4>Charter Party Reports</h4>
+        <p>Full voyage details + CP terms + good weather vs actual fuel comparison. Exportable for dispute resolution. Example: Port Hedland → Jingtang, bulk carrier.</p>
+      </div>
+      <div class="compliance-item">
+        <div class="ci-label">EU/UK MRV</div>
+        <h4>MRV &amp; IMO DCS</h4>
+        <p>Export-ready reports for third-party verifiers. Applicable to all vessel types, fuel types, and propulsion types.</p>
+      </div>
+      <div class="compliance-item">
+        <div class="ci-label">Reporting</div>
+        <h4>Semi-Automated Noon Reporting</h4>
+        <p>Event-based reporting system (EU MRV compliant). GPS/AIS pre-fills heading, speed, bridge miles. Sensor data further automates fuel and engine data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HARDWARE -->
+<section id="hardware">
+  <div class="wrapper">
+    <span class="label">ProSeaDure</span>
+    <h2>Managed Network Solution — Onboard Hardware</h2>
+    <p>ProSeaDure's 19-inch rack solution for vessels without existing sensor infrastructure, or as a connectivity upgrade.</p>
+    <br>
+    <div class="cards-grid">
+      <div class="card">
+        <h3>Data Collection Layer</h3>
+        <ul>
+          <li><strong>Location:</strong> GPS / AIS</li>
+          <li><strong>Sensors:</strong> Flowmeter, Powermeter, Bridge NMEA</li>
+          <li>Automates noon-reporting via sensor data integration</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>19-Inch Rack Unit</h3>
+        <ul>
+          <li>4G/5G eSIM modem</li>
+          <li>Mini-PC</li>
+          <li>MikroTik Router</li>
+          <li>Failover switching: LTE ↔ Starlink ↔ VSAT</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Cloud &amp; Integration</h3>
+        <ul>
+          <li>Data stored on Azure Cloud</li>
+          <li>Client retains data ownership</li>
+          <li>Available via API if existing setup already in place</li>
+          <li>One source of truth into i-nav front-end</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="wrapper">
+    <span class="label">Market</span>
+    <h2>Target Clients &amp; Segments</h2>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Segment</th>
+          <th>Primary Use Case</th>
+          <th>Key i-nav Modules</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Offshore Logistics</strong></td>
+          <td>Crew transfer vessels, supply vessels, optimised scheduling</td>
+          <td>Voyage Optimisation, Vessel Motion (in dev), Live Weather</td>
+        </tr>
+        <tr>
+          <td><strong>Fleet Performance Centres</strong></td>
+          <td>Fleet-wide fuel &amp; CII management, reporting</td>
+          <td>Vessel Performance, CII Monitoring, Post Voyage Analysis</td>
+        </tr>
+        <tr>
+          <td><strong>Ship Managers</strong></td>
+          <td>Compliance, reporting, fleet oversight</td>
+          <td>EU ETS Wallet, MRV/DCS export, Charter Party reports</td>
+        </tr>
+        <tr>
+          <td><strong>Forwarders &amp; Transport</strong></td>
+          <td>Cargo routing, EU ETS cost planning</td>
+          <td>Voyage Optimisation, Compliance Suite</td>
+        </tr>
+        <tr>
+          <td><strong>Commercial Shipping</strong></td>
+          <td>Route optimisation, fuel savings, regulatory compliance</td>
+          <td>Full platform</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrapper">
+    <span class="label">Commercial Model</span>
+    <h2>Pricing Model</h2>
+    <p>No public pricing. Contact-based. Three pricing variables confirmed in webinar Q&amp;A.</p>
+    <br>
+    <div class="pricing-note">
+      <div class="pn-item">
+        <h4>Per Vessel</h4>
+        <p>Primary pricing unit. Differentiated between on-vessel use and onshore use of the platform.</p>
+      </div>
+      <div class="pn-item">
+        <h4>API Call Volume</h4>
+        <p>Both the weather API and the TfOS routing API are metered. Volume determines cost.</p>
+      </div>
+      <div class="pn-item">
+        <h4>No Public Rates</h4>
+        <p>Fully contact-based. InfoPlaza stated: <em>"We are more than happy to guide you through that model in more detail."</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAPS & IN DEVELOPMENT -->
+<section id="gaps">
+  <div class="wrapper">
+    <span class="label dark">Gaps &amp; Limitations</span>
+    <h2>Known Gaps / In Development</h2>
+    <p>Confirmed directly in the webinar — either from Q&amp;A responses or presenter caveats.</p>
+    <br>
+    <div class="gap-item">
+      <div class="gap-dot"></div>
+      <div>
+        <h4>Ocean Currents: 10m Depth Average Only</h4>
+        <p>Confirmed by Menno in closing Q&amp;A. i-nav uses ocean currents as a 10m depth average parameter. No tidal component breakdown, no full depth profile stated.</p>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-dot"></div>
+      <div>
+        <h4>Vessel Motion Model Not Yet Live</h4>
+        <p>Nikki confirmed: currently in development. When live, it will be a <strong>separate dashboard</strong> from voyage optimisation — not integrated into the routing engine. 3-day operational forecast only.</p>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-dot"></div>
+      <div>
+        <h4>Wind Resistance / Rort: Data-Dependent</h4>
+        <p>During Q&amp;A, neither Menno nor Nikki could confirm wind area and rort (wind resistance coefficients) are handled out-of-the-box. Answer: "depends on the data you provide." Not a native capability.</p>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-dot"></div>
+      <div>
+        <h4>Vessel Motion &amp; Routing: Not Integrated</h4>
+        <p>Vessel motion guidance (heading/safety) and voyage optimisation (routing) operate as two separate tools. The optimisation algorithm is not yet aware of vessel motion constraints.</p>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-dot"></div>
+      <div>
+        <h4>Consortium Dependency</h4>
+        <p>i-nav is a three-party product. InfoPlaza controls the weather layer; Theyr controls the algorithm; ProSeaDure controls the front-end and hardware. Product roadmap and go-to-market dependent on all three partners aligning.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>InfoPlaza / i-nav — Internal Competitor Analysis &nbsp;·&nbsp; Prepared May 2026 &nbsp;·&nbsp; Source: InfoPlaza webinar transcript &amp; slides</div>
+</footer>
+
+</body>
+</html>
