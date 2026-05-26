@@ -546,6 +546,7 @@
   <a href="#glance">At a Glance</a>
   <a href="#timeline">Timeline</a>
   <a href="#product">Product</a>
+  <a href="#resolution">Data Resolution</a>
   <a href="#modules">Modules</a>
   <a href="#tvos">TVOS</a>
   <a href="#vessel">Vessel Modelling</a>
@@ -671,6 +672,64 @@
           <li>FuelEU Pooling scenario planning</li>
           <li>Charter Party reports</li>
           <li>MRV + IMO DCS export-ready</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA RESOLUTION -->
+<section id="resolution">
+  <div class="wrapper">
+    <span class="label">Weather Intelligence</span>
+    <h2>Spatial Resolution — Smart Grid</h2>
+    <p>InfoPlaza does not use a single fixed grid. Their system dynamically tightens resolution where weather transitions are rapid — higher resolution in coastal and nearshore passages, coarser offshore.</p>
+    <br>
+    <table class="deep-table">
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Open Ocean</th>
+          <th>Coastal / Nearshore</th>
+          <th>Model Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Wind</strong></td>
+          <td>9–13 km</td>
+          <td><strong>2 km × 2 km</strong></td>
+          <td>ECMWF / GFS (global) + Harmonie / AROME (regional)</td>
+        </tr>
+        <tr>
+          <td><strong>Wave</strong></td>
+          <td>14–25 km (full 2D spectrum)</td>
+          <td><strong>1–5 km</strong></td>
+          <td>In-house wave model — captures shoaling, diffraction near coastlines</td>
+        </tr>
+        <tr>
+          <td><strong>Ocean Currents</strong></td>
+          <td colspan="2">8–12 km (~1/12°) — standard global hydrographic resolution</td>
+          <td>Global hydrographic model — sufficient for large ocean boundaries and mesoscale eddies. <strong>10m depth average only — no depth profile.</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <div class="cards-grid" style="margin-top:0;">
+      <div class="card">
+        <h3>Where the resolution matters</h3>
+        <ul>
+          <li>Coastal wind tunneling and land-sea breezes → 2 km wind grid essential</li>
+          <li>Wave shoaling + diffraction near sandbanks and coastlines → 1–5 km wave grid</li>
+          <li>Offshore open ocean transits → 9–14 km is adequate for winds and waves</li>
+        </ul>
+      </div>
+      <div class="card" style="background:var(--warn-bg);border-color:#F0D090;">
+        <h3 style="color:var(--warn);">Current limitation</h3>
+        <ul>
+          <li>Ocean currents remain at <strong>8–12 km</strong> globally — no coastal tightening stated</li>
+          <li>Only <strong>10m depth average</strong> — no subsurface current profile</li>
+          <li>Cannot resolve mesoscale eddies below ~50 km diameter or near-coast current shear</li>
         </ul>
       </div>
     </div>
@@ -1033,14 +1092,14 @@
           </tr>
           <tr>
             <td>Ocean current data</td>
-            <td><span class="tick">✓</span> <span class="cell-note">2–3.5km AI · HIRES-CURRENTS-Net</span></td>
-            <td><span class="comp-amber">~</span> <span class="cell-note">10m depth average only</span></td>
+            <td><span class="tick">✓</span> <span class="cell-note">2–3.5km AI · HIRES-CURRENTS-Net · full depth</span></td>
+            <td><span class="comp-amber">~</span> <span class="cell-note">8–12km · 10m depth average only · no subsurface profile</span></td>
             <td><span class="comp-cross">✗</span> <span class="cell-note">No proprietary data — external model fusion</span></td>
           </tr>
           <tr>
             <td>Wind &amp; wave forecast</td>
             <td><span class="tick">✓</span> <span class="cell-note">Up to 14 days</span></td>
-            <td><span class="tick">✓</span> <span class="cell-note">Up to 15 days, 50+ parameters</span></td>
+            <td><span class="tick">✓</span> <span class="cell-note">Up to 15 days · 50+ params · wind 2km coastal / wave 1–5km coastal</span></td>
             <td><span class="comp-amber">~</span> <span class="cell-note">ECMWF/GFS fusion, IFREMER-qualified</span></td>
           </tr>
           <tr>
