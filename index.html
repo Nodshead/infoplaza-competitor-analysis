@@ -747,9 +747,10 @@
   <div class="wrapper">
     <span class="label">ProSeaDure</span>
     <h2>Vessel Modelling &amp; Operational Guidance</h2>
-    <p>Delivered by partner <strong>ProSeaDure</strong>. Vessel model acts as the <em>performance layer inside the optimisation workflow</em>.</p>
+    <p>Delivered by partner <strong>ProSeaDure</strong>. Two distinct capabilities — one live today, one in development.</p>
     <br>
-    <h3>Vessel Modelling Pipeline</h3>
+    <h3>1 — Vessel Performance Model <span class="label" style="font-size:10px;vertical-align:middle;margin-left:8px;background:var(--green);color:#fff;">Live</span></h3>
+    <p>Built per-client by ProSeaDure on request. Uses vessel particulars and historical voyage data to produce a routing-ready performance model. This is a <strong>professional services engagement</strong> — ProSeaDure builds it for each vessel, it is not self-serve out of the box.</p>
     <div class="pipeline">
       <div class="pipeline-step"><h4>Input</h4><ul><li>Vessel particulars</li><li>Operational profile &amp; constraints</li><li>Historical noon / sensor data</li><li>Weather, waves &amp; current</li></ul></div>
       <div class="pipeline-arrow">→</div>
@@ -758,8 +759,12 @@
       <div class="pipeline-step"><h4>Outcome</h4><ul><li>Routing-ready performance model</li><li>Feasible speed / power envelope</li><li>Basis for ETA, fuel &amp; safety estimations</li></ul></div>
     </div>
     <br><br>
-    <h3>Wave-to-Motion Prediction Dashboard <span class="label warn" style="font-size:10px;vertical-align:middle;margin-left:8px;">In Development</span></h3>
-    <p>A separate upcoming feature — distinct from the ProSeaDure vessel performance model above. Adds directional wave spectrum to predict vessel motion response. Not yet live and will launch as a standalone dashboard, not integrated into the voyage optimisation module.</p>
+    <h3>2 — Wave-to-Motion Prediction Dashboard <span class="label warn" style="font-size:10px;vertical-align:middle;margin-left:8px;">In Development</span></h3>
+    <p>A separate upcoming capability. Takes vessel-specific RAOs + directional wave spectrum to predict motion response (heave, roll, pitch) and provide GO/caution/no-go operational guidance. Two things are still in development here:</p>
+    <ul style="margin:8px 0 16px 20px;line-height:1.8;">
+      <li>The motion prediction dashboard itself — <strong>not yet live</strong></li>
+      <li>Integration of motion predictions into the routing engine — <strong>also still in development</strong> (will be a standalone tool first)</li>
+    </ul>
     <div class="pipeline">
       <div class="pipeline-step"><h4>Input</h4><ul><li>Directional wave spectrum</li><li>Heading &amp; speed</li></ul></div>
       <div class="pipeline-arrow">→</div>
@@ -768,11 +773,6 @@
       <div class="pipeline-step"><h4>Motion Response</h4><ul><li>Heave / roll / pitch</li><li>By weather and speed</li></ul></div>
       <div class="pipeline-arrow">→</div>
       <div class="pipeline-step"><h4>Operational Insight</h4><ul><li>Compare headings, speeds &amp; windows</li><li>Heading sweep polar diagram</li><li>GO / caution / no-go guidance</li><li>3-day operational forecast</li></ul></div>
-    </div>
-    <br>
-    <div class="card" style="background:var(--warn-bg);border-color:#F0D090;">
-      <h3 style="color:var(--warn);">Current Status</h3>
-      <p>Vessel motion dashboard is currently <strong>separate from voyage optimisation</strong> — standalone heading guidance tool. Integration into the routing workflow is still being developed.</p>
     </div>
   </div>
 </section>
