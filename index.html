@@ -758,8 +758,8 @@
       <div class="pipeline-step"><h4>Outcome</h4><ul><li>Routing-ready performance model</li><li>Feasible speed / power envelope</li><li>Basis for ETA, fuel &amp; safety estimations</li></ul></div>
     </div>
     <br><br>
-    <h3>Vessel Motion Model <span class="label warn" style="font-size:10px;vertical-align:middle;margin-left:8px;">In Development</span></h3>
-    <p>Adding directional wave spectrum to create a vessel motion response model. Not yet live — separate from voyage optimisation module.</p>
+    <h3>Wave-to-Motion Prediction Dashboard <span class="label warn" style="font-size:10px;vertical-align:middle;margin-left:8px;">In Development</span></h3>
+    <p>A separate upcoming feature — distinct from the ProSeaDure vessel performance model above. Adds directional wave spectrum to predict vessel motion response. Not yet live and will launch as a standalone dashboard, not integrated into the voyage optimisation module.</p>
     <div class="pipeline">
       <div class="pipeline-step"><h4>Input</h4><ul><li>Directional wave spectrum</li><li>Heading &amp; speed</li></ul></div>
       <div class="pipeline-arrow">→</div>
@@ -925,7 +925,7 @@
     <p>Confirmed directly in the webinar — from Q&amp;A responses or presenter caveats.</p>
     <br>
     <div class="gap-item"><div class="gap-dot"></div><div><h4>Ocean Currents: 10m Depth Average Only</h4><p>Confirmed by Menno in closing Q&amp;A. i-nav uses ocean currents as a 10m depth average parameter. No tidal component breakdown, no full depth profile stated.</p></div></div>
-    <div class="gap-item"><div class="gap-dot"></div><div><h4>Vessel Motion Model Not Yet Live</h4><p>Nikki confirmed: currently in development. When live, it will be a <strong>separate dashboard</strong> from voyage optimisation — not integrated into the routing engine. 3-day operational forecast only.</p></div></div>
+    <div class="gap-item"><div class="gap-dot"></div><div><h4>Wave-to-Motion Prediction Dashboard Not Yet Live</h4><p>Nikki confirmed: this is a separate upcoming feature from the core vessel modelling — currently in development. When live, it will be a <strong>standalone dashboard</strong>, not integrated into the routing engine. 3-day operational forecast only.</p></div></div>
     <div class="gap-item"><div class="gap-dot"></div><div><h4>Wind Resistance / Rort: Data-Dependent</h4><p>During Q&amp;A, neither Menno nor Nikki could confirm wind area and rort (wind resistance coefficients) are handled out-of-the-box. Answer: "depends on the data you provide."</p></div></div>
     <div class="gap-item"><div class="gap-dot"></div><div><h4>Vessel Motion &amp; Routing: Not Integrated</h4><p>Vessel motion guidance and voyage optimisation operate as two separate tools. The optimisation algorithm is not yet aware of vessel motion constraints.</p></div></div>
     <div class="gap-item"><div class="gap-dot"></div><div><h4>Consortium Dependency</h4><p>i-nav is a three-party product. InfoPlaza controls the weather layer; Theyr controls the algorithm; ProSeaDure controls the front-end and hardware. Product roadmap dependent on all three partners aligning.</p></div></div>
@@ -1158,7 +1158,7 @@
         <div class="comp-gap-body"><ul>
           <li>Ocean currents = 10m depth average only — no precision hydrodynamic layer</li>
           <li>Closed platform — no data API for 3rd party integration</li>
-          <li>Vessel motion model still in development, not yet integrated into routing</li>
+          <li>Wave-to-motion prediction dashboard still in development — separate from core vessel modelling, not yet integrated into routing</li>
         </ul></div>
       </div>
       <div class="comp-gap-card mwi">
