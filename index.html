@@ -523,6 +523,23 @@
   .comp-gap-card.mwi .comp-gap-body { background: var(--mwi-light); }
   .comp-gap-card.mwi .comp-gap-body ul li::before { color: var(--mwi-mid); }
 
+  /* OUTCOME SCENARIOS */
+  .outcome-intro { font-size: 15px; color: var(--mid); line-height: 1.7; max-width: 720px; margin-bottom: 32px; border-left: 3px solid var(--amphitrite); padding-left: 16px; }
+  .outcome-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .outcome-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .outcome-card-header { background: var(--amphitrite); color: #fff; padding: 18px 20px; }
+  .outcome-card-header h3 { font-size: 15px; font-weight: 700; margin: 0 0 4px; }
+  .outcome-card-header p { font-size: 12px; opacity: 0.75; margin: 0; line-height: 1.5; }
+  .outcome-rows { background: var(--card); }
+  .outcome-row { display: grid; grid-template-columns: 90px 1fr; gap: 0; border-bottom: 1px solid var(--border); }
+  .outcome-row:last-child { border-bottom: none; }
+  .outcome-row-label { padding: 14px 16px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; display: flex; align-items: center; }
+  .outcome-row-label.a { background: var(--amphitrite-light); color: var(--amphitrite); border-right: 2px solid var(--amphitrite); }
+  .outcome-row-label.i { background: var(--infoplaza-light); color: var(--infoplaza-mid); border-right: 2px solid var(--infoplaza-mid); }
+  .outcome-row-label.m { background: var(--mwi-light); color: var(--mwi-mid); border-right: 2px solid var(--mwi-mid); }
+  .outcome-row-text { padding: 14px 16px; font-size: 13px; color: var(--mid); line-height: 1.5; }
+  .outcome-row-text strong { color: var(--dark); }
+
   /* FOOTER */
   footer { background: var(--dark); color: #666; text-align: center; padding: 24px; font-size: 12px; }
 
@@ -530,6 +547,7 @@
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .cards-grid, .cards-grid.three, .partners-grid, .compliance-grid, .pos-grid, .three-col { grid-template-columns: 1fr; }
     .module-grid { grid-template-columns: 1fr 1fr; }
+    .outcome-grid { grid-template-columns: 1fr; }
     .algo-compare { grid-template-columns: 1fr; }
     .pricing-note { grid-template-columns: 1fr; }
     .pipeline { flex-direction: column; }
@@ -562,6 +580,7 @@
   <a href="#comp-who">Who They Are</a>
   <a href="#comp-table">Feature Matrix</a>
   <a href="#comp-wins">Where Each Wins</a>
+  <a href="#comp-outcomes">The 1+1+1=10</a>
   <a href="#comp-gaps">What's Missing</a>
 </nav>
 
@@ -1196,6 +1215,101 @@
           <li>ESA satellite + computer vision for real-time storm zone detection</li>
         </ul></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE 1+1+1=10 ARGUMENT -->
+<section id="comp-outcomes">
+  <div class="wrapper">
+    <h2>Beyond Features — What Amphitrite Makes Possible</h2>
+    <p class="outcome-intro">A feature matrix shows parity. This section asks a different question: for specific client types, what outcome does the combination of precision current data + tailor-made vessel model + routing platform produce — that is physically impossible with InfoPlaza or MWI, regardless of how many features they add?</p>
+    <div class="outcome-grid">
+
+      <div class="outcome-card">
+        <div class="outcome-card-header">
+          <h3>Slow-speed &amp; heavy transport</h3>
+          <p>Tugs, barges, heavy lift, special transport — vessels doing 4–7 knots where a 2-knot current error is a 30–50% speed error.</p>
+        </div>
+        <div class="outcome-rows">
+          <div class="outcome-row">
+            <div class="outcome-row-label a">Amphitrite</div>
+            <div class="outcome-row-text"><strong>Accurate ETA and fuel burn for this exact hull.</strong> 2–3.5km current data resolves the eddy. Tailor-made vessel model knows how this specific hull responds at this speed. The two together produce routing that's calibrated to the vessel — not a generic average.</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label i">InfoPlaza</div>
+            <div class="outcome-row-text">8–12km grid averages over the eddy structure. 10m depth average misses tidal shear at slow transit depth. A generic vessel performance model compounds the error. The routing output is an approximation that degrades as vessel speed drops.</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label m">MWI</div>
+            <div class="outcome-row-text">No current model at all. Routing for a slow vessel on atmospheric data alone is operationally unreliable — currents dominate the speed budget and are entirely absent from the calculation.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome-card">
+        <div class="outcome-card-header">
+          <h3>Subsea &amp; offshore operations</h3>
+          <p>ROV deployment, cable laying, platform supply, diving support — where the current at 50–500m depth is the operational constraint.</p>
+        </div>
+        <div class="outcome-rows">
+          <div class="outcome-row">
+            <div class="outcome-row-label a">Amphitrite</div>
+            <div class="outcome-row-text"><strong>Depth-resolved current profile.</strong> The only system that tells you what the current is doing below the surface layer — the data that actually drives ROV operational windows, cable lay decisions, and subsea safety planning.</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label i">InfoPlaza</div>
+            <div class="outcome-row-text">10m depth average — a single surface value. Operationally irrelevant for anything below the surface layer. A cable layer or ROV team cannot plan from this data regardless of how good the atmospheric forecast is.</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label m">MWI</div>
+            <div class="outcome-row-text">No current data at any depth. This use case is outside the scope of what MWI offers. Atmospheric routing is not a substitute for subsea current intelligence.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome-card">
+        <div class="outcome-card-header">
+          <h3>Precision passage &amp; eddy exploitation</h3>
+          <p>Complex passages and open-ocean transits where mesoscale eddies span 20–50km but have exploitable edges at 5–10km.</p>
+        </div>
+        <div class="outcome-rows">
+          <div class="outcome-row">
+            <div class="outcome-row-label a">Amphitrite</div>
+            <div class="outcome-row-text"><strong>Route inside the favourable gyre. Avoid the opposing eddy.</strong> At 2–3.5km resolution the current structure is visible and actionable — route the vessel through the current boundary rather than across it. The fuel saving is real and measurable on each passage.</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label i">InfoPlaza</div>
+            <div class="outcome-row-text">At 8–12km resolution, you are routing through a spatial average. The eddy boundary — the commercially valuable feature — is smoothed out of existence. You cannot exploit what you cannot see.</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label m">MWI</div>
+            <div class="outcome-row-text">No current model. The eddy is invisible. Atmospheric optimisation on a passage where currents are the dominant variable produces a suboptimal route by construction.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="outcome-card">
+        <div class="outcome-card-header">
+          <h3>Ensemble &amp; uncertainty forecasting</h3>
+          <p>Routing under forecast uncertainty — not committing to a single deterministic forecast but planning across all probable weather scenarios simultaneously.</p>
+        </div>
+        <div class="outcome-rows">
+          <div class="outcome-row">
+            <div class="outcome-row-label a">Amphitrite</div>
+            <div class="outcome-row-text"><strong>Ensemble forecasting capability — in use with clients today.</strong> Routes can be evaluated across the full envelope of weather scenarios, not just the single best-estimate forecast. Particularly valuable on North Atlantic and polar-adjacent routes where forecast uncertainty is high. (Note: not yet fully automated on-platform — available on request.)</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label i">InfoPlaza</div>
+            <div class="outcome-row-text">Not a stated capability. The TVOS algorithm optimises on the deterministic forecast. No ensemble or probabilistic routing layer described in product materials.</div>
+          </div>
+          <div class="outcome-row">
+            <div class="outcome-row-label m">MWI</div>
+            <div class="outcome-row-text">Claims "first-in-class" weather uncertainty routing — but the underlying ensemble methodology appears to rely on external ECMWF/GFS model ensembles rather than in-house generation. The framing is strong; the proprietary depth is less clear.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
